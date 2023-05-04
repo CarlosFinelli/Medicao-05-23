@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="drab_dark_brown">#5C573E</color>
+    <color name="olivine">#A5B452</color>
+    <color name="mindaro">#c8d96f</color>
+    <color name="light_green">#c4f7a1</color>
+    <color name="cool_gray">#9ba7c0</color>
+</resources>

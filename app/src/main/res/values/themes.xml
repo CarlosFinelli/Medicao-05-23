@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FaManLogistica" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/olivine</item>
+        <item name="colorSecondary">@color/cool_gray</item>
+        <item name="colorTertiary">@color/drab_dark_brown</item>
+        <item name="android:windowBackground">#e5e5e5</item>
+    </style>
+
+    <style name="Theme.FaManLogistica" parent="Base.Theme.FaManLogistica" />
+</resources>
