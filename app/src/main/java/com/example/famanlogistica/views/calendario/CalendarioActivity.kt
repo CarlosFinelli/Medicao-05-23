@@ -25,21 +25,7 @@ class CalendarioActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel = ViewModelProvider(this).get(CalendarioViewModel::class.java)
-        val mainLayout = binding.mainLayout
-        val calendario = binding.calendario
-        calendario.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            val simpleDateFormat = SimpleDateFormat("dd MMMM ")
-            val date = Calendar.getInstance()
-            date.set(year, month, dayOfMonth)
-            mainLayout.alpha = 0.5f
-            binding.cardDialog.visibility = View.VISIBLE
-            binding.textTitle.setText(simpleDateFormat.format(date.time))
-        }
-
-        binding.btnClose.setOnClickListener {
-            binding.cardDialog.visibility = View.GONE
-            mainLayout.alpha = 1f
-        }
+        viewModel.setComponents(baseContext, binding)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

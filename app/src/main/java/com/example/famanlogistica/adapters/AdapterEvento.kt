@@ -43,19 +43,22 @@ class AdapterEvento(
         val dtTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
         val datas = ArrayList<Eventos>()
         arrayList.forEach { datas.add(it) }
-        datas.sortedBy { it.data }
+        datas.sortedBy { it.data_solitaria }
             .distinctBy {
-                var formatedDate = dateFormat.parse(it.data)
-                dateFormat.parse(it.data)
+                it.data_solitaria
+//                var formatedDate = dateFormat.parse(it.data)
+//                dateFormat.parse(it.data)
             }
 
         if(datas.size > 0) {
             //val date = SimpleDateFormat("dd/MM/yyyy HH:mm").parse(datas[position].data)
-            val date = SimpleDateFormat("dd/MM/yyyy").parse(datas[position].data)
-            holder.textData.setText(dateFormat.format(date) + " - ")
+            //val date = SimpleDateFormat("dd/MM/yyyy").parse(datas[position].data)
+            val date = dateFormat.format(SimpleDateFormat("yyyy-MM-dd").parse(arrayClima[position].data))
+            //holder.textData.setText(dateFormat.format(date) + " - ")
+            holder.textData.setText("$date - ")
             val array = ArrayList<Eventos>()
             arrayList.forEach { array.add(it) }
-            array.removeIf { item -> SimpleDateFormat("dd/MM/yyyy").parse(item.data) != date}
+            array.removeIf { item -> item.data_solitaria != dateFormat.format(SimpleDateFormat("yyyy-MM-dd").parse(arrayClima[position].data)) }
             array.sortBy {dtTimeFormat.parse(it.data)}
             holder.listEvents.layoutManager = LinearLayoutManager(context)
             holder.listEvents.adapter = AdapterItems(context, array)

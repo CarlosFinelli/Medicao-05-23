@@ -45,7 +45,8 @@ class MainViewModel : ViewModel() {
 
     fun getEventos(context: Context) : ArrayList<Eventos> {
         val db = DatabaseHelper(context)
-        val arrayList = db.selectRange(Calendar.getInstance(), 4)
+        //val arrayList = db.selectRange(Calendar.getInstance(), 4)
+        val arrayList = db.selectEvento()
         return arrayList
     }
 
@@ -55,6 +56,7 @@ class MainViewModel : ViewModel() {
         listEventos.layoutManager = LinearLayoutManager(context)
         val arrayEventos = getEventos(context)
         var arrayClima = ArrayList<Clima>()
+        val array = ArrayList<Clima>()
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
             val arrayClimas = JSONObject(response).getJSONArray("clima")
             for (i in 0 until arrayClimas.length()) {
@@ -67,18 +69,20 @@ class MainViewModel : ViewModel() {
                 clima.condicao_desc = json.getString("condicao_desc")
                 clima.indice_uv = json.getInt("indice_uv")
                 arrayClima.add(clima)
+                array.add(clima)
             }
             arrayClima.forEach {
                 var achou = false
                 arrayEventos.forEach {item ->
                     val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-                    if (simpleDateFormat.parse(item.data) == simpleDateFormat.parse(item.data)) achou = true
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    if (simpleDateFormat.format(dateFormat.parse(it.data)) == item.data_solitaria) achou = true
                 }
                 if (!achou) {
-                    arrayClima.remove(it)
+                    array.remove(it)
                 }
             }
-            listEventos.adapter = AdapterEvento(context, arrayEventos, arrayClima)
+            listEventos.adapter = AdapterEvento(context, arrayEventos, array)
         }, { error ->
             Log.e("Request_previsao_error: ", error.toString())
             Snackbar.make(binding.root, "Houve um erro ao adquirir as informações de previsão do tempo!!", Snackbar.LENGTH_LONG).show()

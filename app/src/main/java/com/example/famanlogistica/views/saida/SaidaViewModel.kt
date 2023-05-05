@@ -15,7 +15,8 @@ class SaidaViewModel : ViewModel() {
     fun insertSaida(context: Context, binding: ActivitySaidaBinding) {
         val db = DatabaseHelper(context)
         val evento = convertEvento(binding)
-        if (db.insertSaida(evento) != -1L) {
+        //if (db.insertSaida(evento) != -1L) {
+        if (db.insertEvento(evento) != -1L) {
             context.startActivity(Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             Toast.makeText(context, "Sucesso ao inserir as informações!!", Toast.LENGTH_LONG).show()
         } else {
@@ -29,6 +30,8 @@ class SaidaViewModel : ViewModel() {
         evento.descricao = binding.editDescricao.text.toString()
         evento.data = binding.editHorario.text.toString()
         evento.tolerancia = binding.editTolerancia.text.toString()
+        evento.data_solitaria = evento.data.substringBefore(' ')
+        evento.tipo = 2
         return evento
     }
 }

@@ -6,4 +6,6 @@ class Eventos {
     lateinit var descricao: String
     lateinit var data: String
     lateinit var tolerancia: String
+    lateinit var data_solitaria: String
+    var tipo: Int? = null
 }

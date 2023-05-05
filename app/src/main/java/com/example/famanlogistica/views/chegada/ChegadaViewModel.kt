@@ -15,7 +15,8 @@ class ChegadaViewModel : ViewModel() {
     fun insertChegada(context: Context, binding: ActivityChegadaBinding) {
         val db = DatabaseHelper(context)
         val evento = convertEvento(binding)
-        if (db.insertChegada(evento) != -1L) {
+        if (db.insertEvento(evento) != -1L) {
+        //if (db.insertChegada(evento) != -1L) {
             context.startActivity(Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             Toast.makeText(context, "Sucesso ao inserir as informações!!", Toast.LENGTH_LONG).show()
         } else {
@@ -29,6 +30,8 @@ class ChegadaViewModel : ViewModel() {
         evento.descricao = binding.editDescricao.text.toString()
         evento.data = binding.editHorario.text.toString()
         evento.tolerancia = binding.editTolerancia.text.toString()
+        evento.data_solitaria = evento.data.substringBefore(' ')
+        evento.tipo = 1
         return evento
     }
 }
