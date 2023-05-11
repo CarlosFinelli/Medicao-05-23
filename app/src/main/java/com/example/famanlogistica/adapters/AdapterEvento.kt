@@ -51,10 +51,7 @@ class AdapterEvento(
             }
 
         if(datas.size > 0) {
-            //val date = SimpleDateFormat("dd/MM/yyyy HH:mm").parse(datas[position].data)
-            //val date = SimpleDateFormat("dd/MM/yyyy").parse(datas[position].data)
             val date = dateFormat.format(SimpleDateFormat("yyyy-MM-dd").parse(arrayClima[position].data))
-            //holder.textData.setText(dateFormat.format(date) + " - ")
             holder.textData.setText("$date - ")
             val array = ArrayList<Eventos>()
             arrayList.forEach { array.add(it) }

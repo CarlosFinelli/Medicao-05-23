@@ -22,14 +22,13 @@ class AdapterItems(
         val textDesc = itemView.findViewById<TextView>(R.id.text_desc)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItems.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_dates, parent, false))
     }
 
     @SuppressLint("SimpleDateFormat")
-    override fun onBindViewHolder(holder: AdapterItems.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = arrayList[position]
-        val dateFormat = SimpleDateFormat("HH:mm")
         var data = item.data
         data = data.substringAfter(' ')
         holder.textHorario.setText(data)

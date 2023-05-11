@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.famanlogistica.classes.Eventos
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -39,34 +40,38 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, "
     }
 
     fun selectAll() : ArrayList<Eventos>{
-        val db = this.readableDatabase
         val arrayList = ArrayList<Eventos>()
         val arrayChegada = selectChegadas()
         val arraySaidas = selectSaidas()
         arrayChegada.forEach { arrayList.add(it) }
         arraySaidas.forEach { arrayList.add(it) }
-        //arrayList.groupBy { it.data }
         arrayList.sortBy { it.data }
         return arrayList
     }
 
     fun selectRange(currentDate: Calendar, days: Int) : ArrayList<Eventos> {
         val db = this.readableDatabase
-        val arrayList = selectAll()
+        val arrayList = selectEvento()
         val array = arrayList
-//        arrayList.removeIf{
-//            val dateFomat = SimpleDateFormat("dd/MM/yyyy HH:mm")
-//            dateFomat.parse(it.data).before(currentDate.time)
-//        }
-//        arrayList.removeIf{
-//            //currentDate.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH) + days)
-//            val date = Calendar.getInstance()
-//            date.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
-//            date.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH + days))
-//            val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
-//            val data = dateFormat.parse(it.data)
-//            data.after(date.time)
-//        }
+        arrayList.removeIf{
+            val dateFomat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            dateFomat.parse(it.data).before(currentDate.time)
+
+        }
+        arrayList.removeIf{
+            //currentDate.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH) + days)
+            val date = Calendar.getInstance()
+            date.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
+            date.set(Calendar.HOUR_OF_DAY, 23)
+            date.set(Calendar.MINUTE, 59)
+            var dias = currentDate.get(Calendar.DAY_OF_MONTH) + days
+            date.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH) + days)
+            Log.i("Data_futura: ", date.time.toString())
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            val data = dateFormat.parse(it.data)
+            Log.i("Data_atual: ", data.toString())
+            data.after(date.time)
+        }
         return arrayList
     }
 

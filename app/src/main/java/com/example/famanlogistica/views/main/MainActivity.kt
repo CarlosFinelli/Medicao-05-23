@@ -23,6 +23,5 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.loadData(baseContext, binding)
 
-
     }
 }

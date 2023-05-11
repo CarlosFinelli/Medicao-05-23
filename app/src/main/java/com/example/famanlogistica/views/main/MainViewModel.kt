@@ -45,8 +45,8 @@ class MainViewModel : ViewModel() {
 
     fun getEventos(context: Context) : ArrayList<Eventos> {
         val db = DatabaseHelper(context)
-        //val arrayList = db.selectRange(Calendar.getInstance(), 4)
-        val arrayList = db.selectEvento()
+        val arrayList = db.selectRange(Calendar.getInstance(), 3)
+        //val arrayList = db.selectEvento()
         return arrayList
     }
 
